@@ -1,6 +1,17 @@
+#files
+*~
 *.class
-
-# Package Files #
+*.DS_Store
+*.lock
+*.out
+*.swp
 *.jar
 *.war
 *.ear
+.directory
+.project
+
+#dirs
+*/.settings/*
+*/target/*
+/target/
