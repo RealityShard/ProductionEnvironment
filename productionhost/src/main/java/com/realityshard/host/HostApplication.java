@@ -8,7 +8,6 @@ import com.realityshard.container.ContainerFacade;
 import com.realityshard.network.NetworkFacade;
 import com.realityshard.shardlet.GlobalExecutor;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;

@@ -11,8 +11,8 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -24,6 +24,7 @@ import java.util.logging.Logger;
  */
 public class ClassLoaderExtension 
 {
+    private final static Logger LOGGER = LoggerFactory.getLogger(ClassLoaderExtension.class.getName());
     private static final Class[] parameters = new Class[]{URL.class};
     
     public static void addLibs(File libsFolder)
@@ -55,7 +56,7 @@ public class ClassLoaderExtension
         } 
         catch (MalformedURLException ex) 
         {
-            org.slf4j.LoggerFactory.getLogger(ClassLoaderExtension.class.getName()).error(ex.getMessage(), ex);
+            LOGGER.error(String.format("Could not find a library or add it to the classloader. [name {} ]", libsFolder), ex);
         }
     }
     
@@ -84,7 +85,7 @@ public class ClassLoaderExtension
                 NoSuchMethodException | 
                 SecurityException ex) 
         {
-            org.slf4j.LoggerFactory.getLogger(ClassLoaderExtension.class.getName()).error(ex.getMessage(), ex);
+            LOGGER.error(String.format("Could not find a given classpath folder or add it to the classloader. [name {} ]", url), ex);
         }
 
     }
