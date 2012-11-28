@@ -4,34 +4,34 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.realityshard</groupId>
     <artifactId>entitysystem</artifactId>
-    <name>${project.artifactId}</name>
     <version>0.1.1</version>
 
 
-    <packaging>jar</packaging>
-
-
+    <name>${project.artifactId}</name>
     <description>An Entity-System framework that builds upon R:S Shardlet's event system.</description>
     <url>https://github.com/rusty-gr/Reality-Shard-utils-jv</url>
     <inceptionYear>2012</inceptionYear>
 
 
     <properties>
+        <!-- Java compiler options -->
         <java.source>1.7</java.source>
         <java.target>1.7</java.target>
         <java.debug>true</java.debug>
         <java.optimize>true</java.optimize>
         <java.verbose>true</java.verbose>
+
+        <!-- RS dependency versions -->
+        <rs.api>0.1.4</rs.api>
     </properties>
 
 
     <dependencies>
-        <!--the Shardlet API-->
+        <!-- The Shardlet API -->
         <dependency>
             <groupId>com.realityshard</groupId>
             <artifactId>shardlet</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
+            <version>${rs.api}</version>
         </dependency>
 
         <!-- JUnit for testing -->
