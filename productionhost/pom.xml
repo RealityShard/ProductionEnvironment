@@ -8,7 +8,7 @@
 
 
     <name>${project.artifactId}</name>
-    <description>The host application that creates a new Shardlet:Container</description>
+    <description>The host application that creates a new Shardlet:Container and loads game apps and protocols dynamically</description>
     <url>https://github.com/rusty-gr/Reality-Shard-utils-jv</url>
     <inceptionYear>2012</inceptionYear>
 
@@ -89,7 +89,10 @@
 
 
     <build>
+        <resources>
+        </resources>
         <plugins>
+            <!-- The compiler plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -102,7 +105,69 @@
                     <verbose>${java.verbose}</verbose>
                 </configuration>
             </plugin>
+
+            <!-- The JAXB plugin -->
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.8.0</version>
+                <executions>
+
+                    <execution>
+                        <id>game-app-schema</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <forceRegenerate>false</forceRegenerate>
+                            <generateDirectory>src/main/java</generateDirectory>
+                            <generatePackage>com.realityshard.host.schemas.gameapp</generatePackage>
+                            <episode>false</episode>
+                            <schemaIncludes>
+                                <include>game-app-schema.xsd</include>
+                            </schemaIncludes>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>protocol-schema</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <forceRegenerate>false</forceRegenerate>
+                            <generateDirectory>src/main/java</generateDirectory>
+                            <generatePackage>com.realityshard.host.schemas.protocol</generatePackage>
+                            <episode>false</episode>
+                            <schemaIncludes>
+                                <include>protocol-schema.xsd</include>
+                            </schemaIncludes>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>server-config-schema</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <forceRegenerate>false</forceRegenerate>
+                            <generateDirectory>src/main/java</generateDirectory>
+                            <generatePackage>com.realityshard.host.schemas.serverconfig</generatePackage>
+                            <episode>false</episode>
+                            <schemaIncludes>
+                                <include>server-config-schema.xsd</include>
+                            </schemaIncludes>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
 
 </project>
