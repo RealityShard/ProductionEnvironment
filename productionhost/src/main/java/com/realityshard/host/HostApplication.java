@@ -5,11 +5,10 @@
 package com.realityshard.host;
 
 import com.realityshard.container.ContainerFacade;
-import com.realityshard.network.ConcurrentNetworkManager;
+import com.realityshard.host.dynamicloading.ProductionEnvironment;
+import com.realityshard.network.NetworkFacade;
 import com.realityshard.shardlet.GlobalExecutor;
 import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -48,9 +47,14 @@ public final class HostApplication
         File schemaPath = new File(localPath, "schema");
         File protocolsPath = new File(localPath, "protocols");
         File gameAppsPath = new File(localPath, "gameapps");
-        
+      
         File libsPath = new File(localPath, "lib");
         
+        // we also need some concrete files
+        File concreteServerConfig = new File(configPath, "server-config.xml");
+        File concreteServerConfigSchema = new File(schemaPath, "server-config-schema.xsd");
+        File concreteProtocolSchema = new File(schemaPath, "protocol-schema.xsd");
+        File concreteGameAppSchema = new File(schemaPath, "game-app-schema.xsd");
         
         // init the additional classpaths
         ClassLoaderExtension.addLibs(libsPath);
@@ -64,6 +68,15 @@ public final class HostApplication
         // output some smart info
         logger.info("Host application starting up...");
         
+        // init the environment
+        ProductionEnvironment env = new ProductionEnvironment(
+                concreteServerConfigSchema, 
+                concreteProtocolSchema, 
+                concreteGameAppSchema, 
+                concreteServerConfig, 
+                protocolsPath, 
+                gameAppsPath,
+                "127.0.0.1");
         
         // create the executor
         // TODO: let the parameter be defined by command line args
@@ -76,29 +89,9 @@ public final class HostApplication
         
         // we need a new concurrent network manager here
         // note that this has to be a concrete implementation atm
-        ConcurrentNetworkManager netMan = null;
-        try 
-        {
-            // TODO: BUG! using a CPU - load reducing looping here atm
-            // (will have to switch to some more sophisticated implementation of NetMan in the future)
-            netMan = new ConcurrentNetworkManager(512, 1000);
-        } 
-        catch (IOException ex) 
-        {
-            logger.error("Network manager failed to start up.", ex);
-            System.exit(1);
-        }
+        NetworkFacade netMan = new NetworkFacade("127.0.0.1");
         
         // we've done anything we wanted to, so lets start the container!
-        try 
-        {
-            // create the container
-            ContainerFacade container = new ContainerFacade(netMan, configPath, schemaPath, protocolsPath, gameAppsPath);
-        } 
-        catch (Exception ex) 
-        {
-            logger.error("Container failed to start up.", ex);
-            System.exit(1);
-        }
+        ContainerFacade container = new ContainerFacade(netMan, env);
     }
 }
