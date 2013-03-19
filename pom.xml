@@ -9,7 +9,7 @@
 
     <name>${project.artifactId}</name>
     <description>The host application that creates a new Shardlet:Container and loads game apps and protocols dynamically</description>
-    <url>https://github.com/rusty-gr/Reality-Shard-utils-jv</url>
+    <url>https://github.com/RealityShard/ProductionEnvironment</url>
     <inceptionYear>2012</inceptionYear>
 
 
@@ -22,8 +22,8 @@
         <java.verbose>true</java.verbose>
 
         <!-- RS dependency versions -->
-        <rs.api>0.1.6</rs.api>
-        <rs.imp>0.1.7</rs.imp>
+        <rs.api>0.2.2</rs.api>
+        <rs.imp>0.2.2</rs.imp>
     </properties>
 
 
@@ -47,13 +47,6 @@
             <groupId>com.realityshard</groupId>
             <artifactId>container</artifactId>
             <version>${rs.imp}</version>
-        </dependency>
-
-        <!-- The EntitySystem-->
-        <dependency>
-            <groupId>com.realityshard</groupId>
-            <artifactId>entitysystem</artifactId>
-            <version>0.1.1</version>
         </dependency>
 
         <!-- JUnit for testing -->

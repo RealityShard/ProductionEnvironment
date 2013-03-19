@@ -1,5 +1,5 @@
 ## Overview
-    Project:       Reality:Shard - Frameworks and Utils
-    Info:          It's the frameworks and utils for convenient usage of a RealityShard server.
+    Project:       Reality:Shard ProductionEnvironment
+    Info:          Aims to create a host application for R:S (basically an application that can load your compiled classes).
     Languages:     Java
-    People:        _rusty (author)
+    Organization:  RealityShard
